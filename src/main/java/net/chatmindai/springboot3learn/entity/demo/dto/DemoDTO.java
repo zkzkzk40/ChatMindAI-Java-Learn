@@ -1,13 +1,10 @@
 package net.chatmindai.springboot3learn.entity.demo.dto;
 
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.io.Serializable;
 import java.time.LocalDate;
