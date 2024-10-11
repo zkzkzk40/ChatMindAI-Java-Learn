@@ -25,4 +25,11 @@
         plan_date,score,hobbies,
         agree_terms,create_at,update_at
     </sql>
+
+    <select id="selectUserById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM demo_user
+        WHERE id = #{id}
+    </select>
 </mapper>
