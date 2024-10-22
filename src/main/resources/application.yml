@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: springboot3-learn
+server:
+  port: 8000
