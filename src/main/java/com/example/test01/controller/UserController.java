@@ -1,5 +1,6 @@
 package com.example.test01.controller;
 
+import com.example.test01.annotation.LogInfo;
 import com.example.test01.entity.CommonResult;
 import com.example.test01.entity.Dto.User.CreateUserDTO;
 import com.example.test01.entity.Dto.User.UpdateUserDTO;
@@ -23,8 +24,8 @@ public class UserController {
 
     @GetMapping("/user")
     @Operation(summary = "用户查询接口")
+    @LogInfo("用户查询接口")
     public CommonResult<User> getUserByID(@Validated @RequestParam Long id) {
-        log.info("入参为: {}", id);
         try {
             User user = userService.getById(id);
             if (user == null) {
@@ -38,8 +39,8 @@ public class UserController {
 
     @PostMapping("/user")
     @Operation(summary = "用户创建接口")
+    @LogInfo("用户创建接口")
     public CommonResult<User> createUser(@Validated @RequestBody CreateUserDTO createUserDTO) {
-        log.info("入参为: {}", createUserDTO);
 
         User user = UserConverter.INSTANCE.userDtoToUser(createUserDTO);
         boolean saved = userService.save(user);
@@ -51,8 +52,8 @@ public class UserController {
 
     @PutMapping("/user")
     @Operation(summary = "用户修改接口")
+    @LogInfo("用户修改接口")
     public CommonResult<User> updateUser(@Validated @RequestBody UpdateUserDTO updateUserDTO) {
-        log.info("入参为: {}", updateUserDTO);
 
         User user = UserConverter.INSTANCE.userDtoToUser(updateUserDTO);
         boolean saved = userService.updateById(user);
@@ -65,8 +66,8 @@ public class UserController {
 
     @DeleteMapping("/user")
     @Operation(summary = "用户删除接口")
+    @LogInfo("用户删除接口")
     public CommonResult<User> deleteUser(@Validated @RequestParam Long id) {
-        log.info("入参为: {}", id);
 
         boolean deleted = userService.removeById(id);
         if (deleted) {
