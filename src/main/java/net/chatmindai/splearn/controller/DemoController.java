@@ -2,6 +2,8 @@ package net.chatmindai.splearn.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.Map;
 import net.chatmindai.splearn.entity.demo.dto.DemoDTO;
@@ -12,9 +14,11 @@ import net.chatmindai.splearn.entity.demo.dto.DemoDTO;
  * @author RedFocalors
  * @date 2024/10/23
  */
+
+@Slf4j
+@Tag(name = "演示用的控制器", description = "演示用的控制器")
 @RestController // 表示这是一个RESTful Web服务的控制器,组合了@Controller和@ResponseBody
 @RequestMapping("/demo") // 定义该控制器的基础URL路径
-@Slf4j
 public class DemoController {
 /**
  * 处理GET请求的方法
@@ -25,6 +29,7 @@ public class DemoController {
  * @DeleteMapping - 处理DELETE请求
  * @PatchMapping - 处理PATCH请求
  */
+@Operation(summary = "返回一个简单的json")
 @GetMapping("/hello")
 public Object hello(){
     // 创建一个Map对象并初始化,使用Java 9引入的Map.of()方法
@@ -38,7 +43,7 @@ public Object hello(){
     return map;
 }
 
-
+@Operation(summary = "使用DemoDTO对象")
 @PostMapping("/demo2")
 public DemoDTO useDemoDTO(@Validated @RequestBody DemoDTO demoDTO) {
     log.info("入参为: {}", demoDTO);
