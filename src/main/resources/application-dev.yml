@@ -11,7 +11,7 @@ springdoc:
   group-configs:
     - group: 'default'
       paths-to-match: '/**'
-      packages-to-scan: net.chatmindai.springboot3learn.controller
+      packages-to-scan: com.example.test01.controller
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/Springboot
