@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: splearn
+server:
+  port: 8000
