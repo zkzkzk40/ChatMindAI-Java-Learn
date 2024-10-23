@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.Map;
 import net.chatmindai.splearn.entity.demo.dto.DemoDTO;
+import net.chatmindai.splearn.annotation.LogInfo;
 /**
  * Controller demo
  * 这是跟着学习的示范类
@@ -43,6 +44,7 @@ public Object hello(){
     return map;
 }
 
+@LogInfo("获取用户信息")
 @Operation(summary = "使用DemoDTO对象")
 @PostMapping("/demo2")
 public DemoDTO useDemoDTO(@Validated @RequestBody DemoDTO demoDTO) {
