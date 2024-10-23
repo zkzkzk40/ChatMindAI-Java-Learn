@@ -1,0 +1,19 @@
+server:
+  port: 8080
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: net.chatmindai.springboot3learn.controller
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/Springboot
+    username: root
+    password: 262626mjj

@@ -1,1 +1,5 @@
-spring.application.name=Test01
+spring:
+  application:
+    name: Test01
+  profiles:
+    active: dev
