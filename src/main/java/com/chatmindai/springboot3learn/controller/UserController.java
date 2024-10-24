@@ -6,6 +6,7 @@ import com.chatmindai.springboot3learn.entity.dto.User.UpdateUserDTO;
 import com.chatmindai.springboot3learn.entity.user.User;
 import com.chatmindai.springboot3learn.entity.user.UserConverter;
 import com.chatmindai.springboot3learn.service.UserService;
+import com.chatmindai.springboot3learn.annotation.LogInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ public class UserController {
 
     @PostMapping("/user")
     @Operation(summary = "用户创建接口")
+    @LogInfo("用户创建接口")
     public CommonResult<User> createUser(@Validated @RequestBody CreateUserDTO createUserDTO) {
 
         User user = UserConverter.INSTANCE.userDtoToUser(createUserDTO);
@@ -34,6 +36,7 @@ public class UserController {
 
     @DeleteMapping("/user")
     @Operation(summary = "用户删除接口")
+    @LogInfo("用户删除接口")
     public CommonResult<User> deleteUser(@Validated @RequestParam Long id) {
 
         boolean deleted = userService.removeById(id);
@@ -45,6 +48,7 @@ public class UserController {
 
     @PutMapping("/user")
     @Operation(summary = "用户修改接口")
+    @LogInfo("用户修改接口")
     public CommonResult<User> updateUser(@Validated @RequestBody UpdateUserDTO updateUserDTO) {
 
         User user = UserConverter.INSTANCE.userDtoToUser(updateUserDTO);
@@ -57,6 +61,7 @@ public class UserController {
 
     @GetMapping("/user")
     @Operation(summary = "用户查询接口")
+    @LogInfo("用户查询接口")
     public CommonResult<User> getUserByID(@Validated @RequestParam Long id) {
         try {
             User user = userService.getById(id);
