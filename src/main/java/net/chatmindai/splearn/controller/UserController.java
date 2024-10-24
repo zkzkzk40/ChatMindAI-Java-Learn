@@ -7,11 +7,11 @@ import net.chatmindai.splearn.entity.CommonResult;
 import net.chatmindai.splearn.entity.demo.dto.DemoDTO;
 import net.chatmindai.splearn.entity.user.User;
 import net.chatmindai.splearn.entity.user.UserConverter;
+import net.chatmindai.splearn.entity.user.dtos.UserQueryDto;
+import net.chatmindai.splearn.mapper.UserMapper;
 import net.chatmindai.splearn.service.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 
@@ -21,6 +21,8 @@ import jakarta.validation.Valid;
 @Tag(name = "用户管理", description = "用户相关的 API")
 public class UserController {
     private final UserService userService;
+    @Autowired
+    private UserMapper userMapper;
 
     @PostMapping("/register")
     @Operation(summary = "创建新用户", description = "接收 DemoDTO，转换为 User 并保存到数据库")
@@ -32,5 +34,26 @@ public class UserController {
         } else {
             return CommonResult.error("用户创建失败");
         }
+    }
+
+    @GetMapping("/find")
+    @Operation(summary = "查询用户信息",description = "接收id信息,返回对应id的用户信息")
+    public CommonResult<User> findUser(@RequestParam(value = "id",required = false) String id) {
+        UserQueryDto dto = new UserQueryDto();
+        if (id == null || id.trim().isEmpty()) {
+            return CommonResult.error("id为空");
+        }
+        Long userId;
+        try {
+            userId = Long.valueOf(id);
+        } catch (Exception e) {
+            return CommonResult.error("id格式错误");
+        }
+        dto.setId(userId);
+        User foundUser = userMapper.selectUserById(dto);
+        if (foundUser == null) {
+            return CommonResult.error("未查找到该用户");
+        }
+        return CommonResult.success(foundUser, "成功找到该用户");
     }
 }

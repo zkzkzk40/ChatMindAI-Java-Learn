@@ -1,5 +1,6 @@
 package net.chatmindai.splearn.entity.user;
 import net.chatmindai.splearn.entity.demo.dto.DemoDTO;
+import net.chatmindai.splearn.entity.user.dtos.UserQueryDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -28,6 +29,12 @@ public interface UserConverter {
             @Mapping(target = "planDate", source = "planDate", qualifiedByName = "localDateToLocalDateTime")
     })
     User userDtoToUser(DemoDTO userDto);
+
+    @Mappings({
+            @Mapping(target="id",ignore = true),
+    })
+    UserQueryDto userToUserQueryDto(UserQueryDto userQueryDto);
+
 
     @Named("localDateToLocalDateTime")
     default LocalDateTime localDateToLocalDateTime(LocalDate date) {
