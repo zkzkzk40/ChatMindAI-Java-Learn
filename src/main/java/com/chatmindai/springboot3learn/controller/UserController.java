@@ -9,10 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -32,6 +29,17 @@ public class UserController {
             return CommonResult.success(user, "用户创建成功");
         }
         return CommonResult.error("用户创建失败");
+    }
+
+    @DeleteMapping("/user")
+    @Operation(summary = "用户删除接口")
+    public CommonResult<User> deleteUser(@Validated @RequestParam Long id) {
+
+        boolean deleted = userService.removeById(id);
+        if (deleted) {
+            return CommonResult.success(null, "用户删除成功");
+        }
+        return CommonResult.error("用户删除失败");
     }
 
 }
