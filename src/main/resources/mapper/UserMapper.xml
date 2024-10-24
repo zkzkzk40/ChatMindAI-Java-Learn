@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chatmindai.springboot3learn.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.chatmindai.springboot3learn.entity.user.User">
+        <result property="hobbies" column="hobbies" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,age,
+        email,phone_number,birth_date,
+        plan_date,score,hobbies,
+        agree_terms,create_at,update_at
+    </sql>
+</mapper>
