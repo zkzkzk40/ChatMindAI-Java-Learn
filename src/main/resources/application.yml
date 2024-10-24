@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: springboot3-learn
+  profiles:
+    active: dev
