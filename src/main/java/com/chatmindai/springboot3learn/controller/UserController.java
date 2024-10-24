@@ -2,6 +2,7 @@ package com.chatmindai.springboot3learn.controller;
 
 import com.chatmindai.springboot3learn.entity.CommonResult;
 import com.chatmindai.springboot3learn.entity.dto.User.CreateUserDTO;
+import com.chatmindai.springboot3learn.entity.dto.User.UpdateUserDTO;
 import com.chatmindai.springboot3learn.entity.user.User;
 import com.chatmindai.springboot3learn.entity.user.UserConverter;
 import com.chatmindai.springboot3learn.service.UserService;
@@ -40,6 +41,18 @@ public class UserController {
             return CommonResult.success(null, "用户删除成功");
         }
         return CommonResult.error("用户删除失败");
+    }
+
+    @PutMapping("/user")
+    @Operation(summary = "用户修改接口")
+    public CommonResult<User> updateUser(@Validated @RequestBody UpdateUserDTO updateUserDTO) {
+
+        User user = UserConverter.INSTANCE.userDtoToUser(updateUserDTO);
+        boolean saved = userService.updateById(user);
+        if (saved) {
+            return CommonResult.success(user, "更新用户成功");
+        }
+        return CommonResult.error("更新用户失败");
     }
 
 }
