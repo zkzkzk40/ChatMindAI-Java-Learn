@@ -55,4 +55,18 @@ public class UserController {
         return CommonResult.error("更新用户失败");
     }
 
+    @GetMapping("/user")
+    @Operation(summary = "用户查询接口")
+    public CommonResult<User> getUserByID(@Validated @RequestParam Long id) {
+        try {
+            User user = userService.getById(id);
+            if (user == null) {
+                return CommonResult.success(null, "用户查找失败");
+            }
+            return CommonResult.success(user, "用户查找成功");
+        } catch (Exception e) {
+            return CommonResult.error("查询失败: " + e.getMessage()); // 处理其他异常
+        }
+    }
+
 }
