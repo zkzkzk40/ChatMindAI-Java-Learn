@@ -1,10 +1,10 @@
-package com.example.demo;
+package net.chatmindai.springboot3learn;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class springboot3learnDemoApplicationTests {
 
     @Test
     void contextLoads() {
