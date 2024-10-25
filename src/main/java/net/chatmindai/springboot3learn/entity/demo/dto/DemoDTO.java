@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2024/10/04
  */
 @Data
-public class DemoDto implements Serializable {
+public class DemoDTO implements Serializable {
     @NotBlank(message = "名称不能为空")
     @Length(min = 2, max = 50, message = "名称长度必须在2到50个字符之间")
     private String name;

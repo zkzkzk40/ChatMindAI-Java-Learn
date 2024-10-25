@@ -1,9 +1,9 @@
 package net.chatmindai.springboot3learn.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import lombok.extern.slf4j.Slf4j;
+import net.chatmindai.springboot3learn.entity.demo.dto.*;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 /**
@@ -15,7 +15,7 @@ import java.util.Map;
  */
 @RestController // 表示这是一个RESTful Web服务的控制器,组合了@Controller和@ResponseBody
 @RequestMapping("/demo") // 定义该控制器的基础URL路径
-
+@Slf4j
 public class Controller {
     /**
      * 处理GET请求的方法
@@ -37,6 +37,12 @@ public class Controller {
         // 直接返回map对象,Spring会自动将其转换为JSON格式
         // 如果想要更细粒度的控制,可以考虑使用ResponseEntity<>
         return map;
+    }
+
+    @PostMapping("/demo2")
+    public DemoDTO useDemoDTO(@Validated @RequestBody DemoDTO demoDTO) {
+        log.info("入参为: {}", demoDTO);
+        return demoDTO;
     }
 
     // 可以添加更多的方法来处理不同的请求
