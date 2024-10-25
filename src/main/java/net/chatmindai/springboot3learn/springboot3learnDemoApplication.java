@@ -8,7 +8,4 @@ public class springboot3learnDemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(springboot3learnDemoApplication.class, args);
     }
-
-
-
 }
