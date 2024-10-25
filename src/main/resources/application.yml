@@ -1,0 +1,6 @@
+
+    spring:
+      application:
+        name: Chatlearn
+    server:
+      port: 8000
