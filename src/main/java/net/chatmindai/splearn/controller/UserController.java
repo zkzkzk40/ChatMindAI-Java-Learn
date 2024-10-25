@@ -75,7 +75,7 @@ public class UserController {
         dto.setId(userId);
         User foundUser = userMapper.selectUserById(dto);
         if (foundUser == null) {
-            return CommonResult.error("该用户不存在");
+            return CommonResult.error("未查找到该用户");
         }
         User dataUser = UserConverter.INSTANCE.userDtoToUser(demoDTO);
         LocalDateTime now = LocalDateTime.now();
@@ -95,5 +95,34 @@ public class UserController {
         } else {
             return CommonResult.error("用户更新失败");
         }
+    }
+
+    @DeleteMapping("/delete")
+    @Operation(summary = "删除用户",description = "查询用户id并删除")
+    public CommonResult<User> deleteUser(@RequestParam(value = "id",required = false) String id) {
+        UserQueryDto dto = new UserQueryDto();
+        if (id == null || id.trim().isEmpty()) {
+            return CommonResult.error("id为空");
+        }
+        Long userId;
+        try {
+            userId = Long.valueOf(id);
+        } catch (Exception e) {
+            return CommonResult.error("id格式错误");
+        }
+        dto.setId(userId);
+        User foundUser = userMapper.selectUserById(dto);
+        if (foundUser == null) {
+            return CommonResult.error("未查找到该用户");
+        }
+        boolean remove = userService.removeById(userId);
+        User removeUser = userService.getById(userId);
+        if (remove) {
+            return CommonResult.success(removeUser,"成功删除该用户");
+        }
+        else {
+            return CommonResult.error("删除失败");
+        }
+
     }
 }
