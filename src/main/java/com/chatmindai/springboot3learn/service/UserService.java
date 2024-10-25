@@ -2,6 +2,7 @@ package com.chatmindai.springboot3learn.service;
 
 import com.chatmindai.springboot3learn.entity.user.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.cache.annotation.Cacheable;
 
 /**
 * @author 10723
@@ -10,4 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface UserService extends IService<User> {
 
+    @Cacheable(value = "users", key = "#id")
+    User getById(Long id);
 }
