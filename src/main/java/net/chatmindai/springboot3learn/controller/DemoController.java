@@ -19,7 +19,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "演示用的控制器", description = "演示用的控制器")
 @RestController
 @RequestMapping("/demo")
-public class Controller {
+public class DemoController {
     /**
      * 处理GET请求的方法
      * @GetMapping是@RequestMapping(method = RequestMethod.GET)的简写
