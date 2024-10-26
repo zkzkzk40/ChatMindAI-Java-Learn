@@ -3,15 +3,23 @@ package com.chatmindai.springboot3learn.controller;
 import com.chatmindai.springboot3learn.entity.CommonResult;
 import com.chatmindai.springboot3learn.entity.dto.User.CreateUserDTO;
 import com.chatmindai.springboot3learn.entity.dto.User.UpdateUserDTO;
+import com.chatmindai.springboot3learn.entity.loginUser;
 import com.chatmindai.springboot3learn.entity.user.User;
 import com.chatmindai.springboot3learn.entity.user.UserConverter;
+import com.chatmindai.springboot3learn.service.LoginUserService;
 import com.chatmindai.springboot3learn.service.UserService;
 import com.chatmindai.springboot3learn.annotation.LogInfo;
+import com.chatmindai.springboot3learn.util.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -20,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+
 
     @PostMapping("/user")
     @Operation(summary = "用户创建接口")
@@ -74,4 +83,32 @@ public class UserController {
         }
     }
 
+    @Autowired
+    private LoginUserService loginUserService;
+
+    @GetMapping("/user/login")
+    @Operation(summary = "用户登录接口")
+    @LogInfo("用户登录接口")
+    public Map<String,Object> login(loginUser loginUser){
+        log.info("用户名：[{}]",loginUser.getUsername());
+        log.info("密码：[{}]",loginUser.getPassword());
+
+        Map<String, Object> map = new HashMap<>();
+
+        try {
+            loginUser userDB = loginUserService.login(loginUser);
+            Map<String,String> payload = new HashMap<>();
+            payload.put("id",userDB.getId());
+            payload.put("username",userDB.getUsername());
+            //生成JWT令牌
+            String token = JwtUtil.getToken(payload);
+            map.put("state",true);
+            map.put("token",token);
+            map.put("msg","认证成功");
+        }catch (Exception e){
+            map.put("state",false);
+            map.put("msg",e.getMessage());
+        }
+        return map;
+    }
 }
