@@ -1,6 +1,6 @@
 package net.springboot3learn.mapper;
 
-import jai.springboot3learn.entity.user.user;
+import net.chatmindai.springboot3learn.entity.user.user;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
