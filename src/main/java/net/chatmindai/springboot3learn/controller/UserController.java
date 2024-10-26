@@ -5,19 +5,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import net.chatmindai.springboot3learn.annotation.LogInfo;
 import net.chatmindai.springboot3learn.entity.CommonResult;
-import net.chatmindai.springboot3learn.entity.demo.dto.DemoDTO;
 import net.chatmindai.springboot3learn.entity.demo.dto.User.CreateUserDTO;
 import net.chatmindai.springboot3learn.entity.demo.dto.User.UpdateUserDTO;
 import net.chatmindai.springboot3learn.entity.user.User;
-import net.chatmindai.springboot3learn.entity.user.UserConverter;
 import net.chatmindai.springboot3learn.entity.user.loginUser;
 import net.chatmindai.springboot3learn.service.UserService;
 import net.chatmindai.springboot3learn.service.impl.LoginUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import jakarta.validation.Valid;
 
 import java.util.HashMap;
 import java.util.Map;

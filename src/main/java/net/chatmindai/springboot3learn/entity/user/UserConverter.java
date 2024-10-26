@@ -1,6 +1,7 @@
 package net.chatmindai.springboot3learn.entity.user;
 
 import net.chatmindai.springboot3learn.entity.demo.dto.User.CreateUserDTO;
+import net.chatmindai.springboot3learn.entity.demo.dto.User.UpdateUserDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -12,9 +13,6 @@ import java.time.LocalDateTime;
 
 /**
  * 用户转换器
- *
- * @author zk
- * @date 2024/10/09
  */
 @Mapper
 public interface UserConverter {
@@ -23,13 +21,15 @@ public interface UserConverter {
 
     @Mappings({
             @Mapping(target = "id", ignore = true),
-            @Mapping(target = "createAt", ignore = true),
-            @Mapping(target = "updateAt", ignore = true),
             @Mapping(target = "agreeTerms", expression = "java(userDto.isAgreeTerms() ? 1 : 0)"),
             @Mapping(target = "birthDate", source = "birthDate", qualifiedByName = "localDateToLocalDateTime"),
-            @Mapping(target = "planDate", source = "planDate", qualifiedByName = "localDateToLocalDateTime")
+            @Mapping(target = "planDate", source = "planDate", qualifiedByName = "localDateToLocalDateTime"),
+            @Mapping(target = "hobbies", source = "hobbies"),
+            @Mapping(target = "createAt", expression = "java(java.time.LocalDateTime.now())"),
+            @Mapping(target = "updateAt", expression = "java(java.time.LocalDateTime.now())")
     })
     User userDtoToUser(CreateUserDTO userDto);
+    User userDtoToUser(UpdateUserDTO userDto);
 
     @Named("localDateToLocalDateTime")
     default LocalDateTime localDateToLocalDateTime(LocalDate date) {
