@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import net.chatmindai.springboot3learn.annotation.LogInfo;
 
 /**
  * Controller demo
@@ -43,9 +44,10 @@ public class DemoController {
         return map;
     }
 
+    @LogInfo("获取用户信息")
     @Operation(summary = "使用DemoDTO对象")
     @PostMapping("/demo2")
-    @LogInfo("获取用户信息")
+
     public DemoDTO useDemoDTO(@Validated @RequestBody DemoDTO demoDTO) {
         log.info("入参为: {}", demoDTO);
         return demoDTO;
