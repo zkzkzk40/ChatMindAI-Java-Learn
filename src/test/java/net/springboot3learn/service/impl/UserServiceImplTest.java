@@ -4,13 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import net.chatmindai.springboot3learn.entity.user.User;
-import net.chatmindai.springboot3learn.service.userService;
+import net.chatmindai.springboot3learn.service.UserService;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDateTime;
 
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UserServiceImplTest {
 
     @Resource
-    private userService userService;
+    private UserService userService;
 
     private static Long userId;
     private static List<Long> batchUserIds;

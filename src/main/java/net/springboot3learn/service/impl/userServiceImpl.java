@@ -2,7 +2,7 @@ package net.springboot3learn.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.chatmindai.springboot3learn.entity.user.User;
-import net.chatmindai.springboot3learn.service.userService;
+import net.chatmindai.springboot3learn.service.UserService;
 import net.springboot3learn.mapper.userMapper;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 */
 @Service
 public class userServiceImpl extends ServiceImpl<userMapper, User>
-    implements userService{
+    implements UserService {
 
 }
 

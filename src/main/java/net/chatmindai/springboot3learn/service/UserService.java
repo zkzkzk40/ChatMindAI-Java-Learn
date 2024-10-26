@@ -8,6 +8,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @description 针对表【demo_user(演示用户信息表)】的数据库操作Service
 * @createDate 2024-10-26 21:48:50
 */
-public interface userService extends IService<User> {
+public interface UserService extends IService<User> {
 
 }
