@@ -17,15 +17,16 @@
             <result property="agreeTerms" column="agree_terms" jdbcType="TINYINT"/>
             <result property="createAt" column="create_at" jdbcType="TIMESTAMP"/>
             <result property="updateAt" column="update_at" jdbcType="TIMESTAMP"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,name,age,
         email,phone_number,birth_date,
         plan_date,score,hobbies,
-        agree_terms,create_at,update_at
+        agree_terms,create_at,update_at,
+        password
     </sql>
-
 
     <select id="selectUserById" resultMap="BaseResultMap">
         SELECT
@@ -34,22 +35,12 @@
         WHERE id = #{id}
     </select>
 
-    <update id="updateById" parameterType="net.chatmindai.springboot3learn.entity.user.User">
-        UPDATE demo_user
-        <set>
-            <if test="name != null">name = #{name},</if>
-            <if test="age != null">age = #{age},</if>
-            <if test="email != null">email = #{email},</if>
-            <if test="phoneNumber != null">phone_number = #{phoneNumber},</if>
-            <if test="birthDate != null">birth_date = #{birthDate},</if>
-            <if test="planDate != null">plan_date = #{planDate},</if>
-            <if test="score != null">score = #{score},</if>
-            <if test="hobbies != null">hobbies = #{hobbies, typeHandler=com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler},</if>
-            <if test="agreeTerms != null">agree_terms = #{agreeTerms},</if>
-            <if test="createAt != null">create_at = #{createAt},</if>
-            <if test="updateAt != null">update_at = #{updateAt}</if>
-        </set>
-        WHERE id = #{id}
-    </update>
+    <select id="login" parameterType="net.chatmindai.springboot3learn.entity.user.User" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM demo_user
+        WHERE name = #{name} AND password = #{password}
+    </select>
+
 
 </mapper>

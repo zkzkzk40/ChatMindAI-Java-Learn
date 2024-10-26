@@ -26,8 +26,9 @@ public interface UserConverter {
             @Mapping(target = "createAt", ignore = true),
             @Mapping(target = "updateAt", ignore = true),
             @Mapping(target = "agreeTerms", expression = "java(userDto.isAgreeTerms() ? 1 : 0)"),
-            @Mapping(target = "birthDate", source = "birthDate"),
-            @Mapping(target = "planDate", source = "planDate")
+            @Mapping(target = "birthDate", source = "birthDate", qualifiedByName = "localDateToLocalDateTime"),
+            @Mapping(target = "planDate", source = "planDate", qualifiedByName = "localDateToLocalDateTime"),
+            @Mapping(target = "password", source = "password")
     })
     User userDtoToUser(DemoDTO userDto);
 

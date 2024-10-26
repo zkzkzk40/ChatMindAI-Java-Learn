@@ -56,4 +56,9 @@ public class DemoDTO implements Serializable {
     @Schema(description = "是否同意服务条款", example = "true")
     @AssertTrue(message = "必须同意服务条款")
     private boolean agreeTerms;
+
+    @Schema(description = "密码", example = "123456")
+    @NotBlank(message = "密码不能为空")
+    @Length(min = 6, max = 20, message = "密码长度必须在6到20个字符之间")
+    private String password;
 }
