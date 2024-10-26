@@ -2,21 +2,21 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.springboot3learn.mapper.userMapper">
+<mapper namespace="net.chatmindai.springboot3learn.mapper.UserMapper">
 
     <resultMap id="BaseResultMap" type="net.chatmindai.springboot3learn.entity.user.User">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="name" column="name" jdbcType="VARCHAR"/>
-            <result property="age" column="age" jdbcType="INTEGER"/>
-            <result property="email" column="email" jdbcType="VARCHAR"/>
-            <result property="phoneNumber" column="phone_number" jdbcType="VARCHAR"/>
-            <result property="birthDate" column="birth_date" jdbcType="DATE"/>
-            <result property="planDate" column="plan_date" jdbcType="DATE"/>
-            <result property="score" column="score" jdbcType="DOUBLE"/>
-            <result property="hobbies" column="hobbies" jdbcType="OTHER"/>
-            <result property="agreeTerms" column="agree_terms" jdbcType="TINYINT"/>
-            <result property="createAt" column="create_at" jdbcType="TIMESTAMP"/>
-            <result property="updateAt" column="update_at" jdbcType="TIMESTAMP"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="age" column="age" jdbcType="INTEGER"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="phoneNumber" column="phone_number" jdbcType="VARCHAR"/>
+        <result property="birthDate" column="birth_date" jdbcType="DATE"/>
+        <result property="planDate" column="plan_date" jdbcType="DATE"/>
+        <result property="score" column="score" jdbcType="DOUBLE"/>
+        <result property="hobbies" column="hobbies" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result property="agreeTerms" column="agree_terms" jdbcType="TINYINT"/>
+        <result property="createAt" column="create_at" jdbcType="TIMESTAMP"/>
+        <result property="updateAt" column="update_at" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -25,4 +25,11 @@
         plan_date,score,hobbies,
         agree_terms,create_at,update_at
     </sql>
+
+    <select id="selectUserById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM demo_user
+        WHERE id = #{id}
+    </select>
 </mapper>

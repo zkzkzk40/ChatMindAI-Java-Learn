@@ -64,7 +64,7 @@ public class User implements Serializable {
      * 用户兴趣爱好列表，1-5项
      */
     @TableField(typeHandler = JacksonTypeHandler.class)
-    private List<String> hobbies;
+    private Object hobbies;
 
     /**
      * 是否同意服务条款
