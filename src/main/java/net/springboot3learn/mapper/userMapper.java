@@ -1,6 +1,6 @@
 package net.springboot3learn.mapper;
 
-import net.chatmindai.springboot3learn.entity.user.user;
+import net.chatmindai.springboot3learn.entity.user.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2024-10-26 21:45:34
 * @Entity jai.springboot3learn.entity.user.user
 */
-public interface userMapper extends BaseMapper<user> {
+public interface userMapper extends BaseMapper<User> {
 
 }
 
