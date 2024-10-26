@@ -45,6 +45,7 @@ public class DemoController {
 
     @Operation(summary = "使用DemoDTO对象")
     @PostMapping("/demo2")
+    @LogInfo("获取用户信息")
     public DemoDTO useDemoDTO(@Validated @RequestBody DemoDTO demoDTO) {
         log.info("入参为: {}", demoDTO);
         return demoDTO;
