@@ -8,9 +8,11 @@ import net.chatmindai.springboot3learn.entity.CommonResult;
 import net.chatmindai.springboot3learn.entity.demo.dto.User.CreateUserDTO;
 import net.chatmindai.springboot3learn.entity.demo.dto.User.UpdateUserDTO;
 import net.chatmindai.springboot3learn.entity.user.User;
+import net.chatmindai.springboot3learn.entity.user.UserConverter;
 import net.chatmindai.springboot3learn.entity.user.loginUser;
 import net.chatmindai.springboot3learn.service.UserService;
 import net.chatmindai.springboot3learn.service.impl.LoginUserService;
+import net.chatmindai.springboot3learn.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -18,50 +20,45 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
 @Tag(name = "用户管理", description = "用户相关的 API")
 public class UserController {
-
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
+    private final LoginUserService loginUserService;
 
     @PostMapping("/user")
     @Operation(summary = "用户创建接口")
     @LogInfo("用户创建接口")
     public CommonResult<User> createUser(@Validated @RequestBody CreateUserDTO createUserDTO) {
-
         User user = UserConverter.INSTANCE.userDtoToUser(createUserDTO);
-        boolean saved = userService.save(user);
-        if (saved) {
-            return CommonResult.success(user, "用户创建成功");
-        }
-        return CommonResult.error("用户创建失败");
+        return userService.save(user)
+                ? CommonResult.success(user, "用户创建成功")
+                : CommonResult.error("用户创建失败");
     }
 
     @DeleteMapping("/user")
     @Operation(summary = "用户删除接口")
     @LogInfo("用户删除接口")
-    public CommonResult<User> deleteUser(@Validated @RequestParam Long id) {
-
-        boolean deleted = userService.removeById(id);
-        if (deleted) {
-            return CommonResult.success(null, "用户删除成功");
-        }
-        return CommonResult.error("用户删除失败");
+    public CommonResult<Void> deleteUser(@Validated @RequestParam Long id) {
+        return userService.removeById(id)
+                ? CommonResult.success(null, "用户删除成功")
+                : CommonResult.error("用户删除失败");
     }
 
     @PutMapping("/user")
     @Operation(summary = "用户修改接口")
     @LogInfo("用户修改接口")
     public CommonResult<User> updateUser(@Validated @RequestBody UpdateUserDTO updateUserDTO) {
-
         User user = UserConverter.INSTANCE.userDtoToUser(updateUserDTO);
-        boolean saved = userService.updateById(user);
-        if (saved) {
-            return CommonResult.success(user, "更新用户成功");
-        }
-        return CommonResult.error("更新用户失败");
+        return userService.updateById(user)
+                ? CommonResult.success(user, "更新用户成功")
+                : CommonResult.error("更新用户失败");
     }
 
     @GetMapping("/user")
@@ -70,41 +67,42 @@ public class UserController {
     public CommonResult<User> getUserByID(@Validated @RequestParam Long id) {
         try {
             User user = userService.getById(id);
-            if (user == null) {
-                return CommonResult.success(null, "用户查找失败");
-            }
-            return CommonResult.success(user, "用户查找成功");
+            return CommonResult.success(user, user != null ? "用户查找成功" : "用户查找失败");
         } catch (Exception e) {
-            return CommonResult.error("查询失败: " + e.getMessage()); // 处理其他异常
+            log.error("查询失败: ", e);
+            return CommonResult.error("查询失败: " + e.getMessage());
         }
     }
-
-    @Autowired
-    private LoginUserService loginUserService;
 
     @GetMapping("/user/login")
     @Operation(summary = "用户登录接口")
     @LogInfo("用户登录接口")
-    public Map<String,Object> login(loginUser loginUser){
-        log.info("用户名：[{}]",loginUser.getUsername());
-        log.info("密码：[{}]",loginUser.getPassword());
-
-        Map<String, Object> map = new HashMap<>();
+    public Map<String, Object> login(@RequestBody loginUser loginUser) {
+        log.info("用户名：[{}]", loginUser.getUsername());
+        log.info("密码：[{}]", loginUser.getPassword());
+        Map<String, Object> response = new HashMap<>();
 
         try {
             loginUser userDB = loginUserService.login(loginUser);
-            Map<String,String> payload = new HashMap<>();
-            payload.put("id",userDB.getId());
-            payload.put("username",userDB.getUsername());
-            //生成JWT令牌
+            Map<String, String> payload = new HashMap<>();
+            payload.put("id", userDB.getId());
+            payload.put("username", userDB.getUsername());
             String token = JwtUtil.getToken(payload);
-            map.put("state",true);
-            map.put("token",token);
-            map.put("msg","认证成功");
-        }catch (Exception e){
-            map.put("state",false);
-            map.put("msg",e.getMessage());
+            response.put("state", true);
+            response.put("token", token);
+            response.put("msg", "认证成功");
+        } catch (Exception e) {
+            log.error("登录失败: ", e);
+            response.put("state", false);
+            response.put("msg", e.getMessage());
         }
-        return map;
+        return response;
+    }
+
+    @GetMapping("/user/logout")
+    @Operation(summary = "用户登出接口")
+    @LogInfo("用户登出接口")
+    public CommonResult<String> logout() {
+        return CommonResult.success("登出成功");
     }
 }
