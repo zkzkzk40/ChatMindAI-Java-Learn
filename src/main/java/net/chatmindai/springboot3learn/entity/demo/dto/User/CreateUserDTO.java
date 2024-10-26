@@ -1,5 +1,6 @@
-package net.chatmindai.springboot3learn.entity.demo.dto;
+package net.chatmindai.springboot3learn.entity.demo.dto.User;
 
+import jakarta.validation.constraints.AssertTrue;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -12,11 +13,11 @@ import java.util.List;
 /**
  * demo参数
  *
- * @author zk
- * @date 2024/10/04
+ * @author hpy
+ * @date 2024/10/27
  */
 @Data
-public class DemoDTO implements Serializable {
+public class CreateUserDTO implements Serializable {
     @NotBlank(message = "名称不能为空")
     @Length(min = 2, max = 50, message = "名称长度必须在2到50个字符之间")
     private String name;

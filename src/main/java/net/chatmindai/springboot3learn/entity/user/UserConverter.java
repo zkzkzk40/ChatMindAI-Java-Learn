@@ -1,6 +1,6 @@
 package net.chatmindai.springboot3learn.entity.user;
 
-import net.chatmindai.springboot3learn.entity.demo.dto.DemoDTO;
+import net.chatmindai.springboot3learn.entity.demo.dto.User.CreateUserDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -29,7 +29,7 @@ public interface UserConverter {
             @Mapping(target = "birthDate", source = "birthDate", qualifiedByName = "localDateToLocalDateTime"),
             @Mapping(target = "planDate", source = "planDate", qualifiedByName = "localDateToLocalDateTime")
     })
-    User userDtoToUser(DemoDTO userDto);
+    User userDtoToUser(CreateUserDTO userDto);
 
     @Named("localDateToLocalDateTime")
     default LocalDateTime localDateToLocalDateTime(LocalDate date) {
