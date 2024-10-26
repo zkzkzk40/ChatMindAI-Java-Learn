@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import net.chatmindai.springboot3learn.annotation.LogInfo;
+
 import java.util.Arrays;
 
 @Aspect
@@ -46,3 +48,4 @@ public Object logAroundController(ProceedingJoinPoint joinPoint) throws Throwabl
 
         return result;
         }
+}
