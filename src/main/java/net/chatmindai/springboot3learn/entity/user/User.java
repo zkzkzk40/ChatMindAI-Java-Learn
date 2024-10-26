@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
@@ -17,7 +16,7 @@ import lombok.Data;
  * 演示用户信息表
  * @TableName demo_user
  */
-@TableName(value ="demo_user")
+@TableName(value ="demo_user",autoResultMap = true)
 @Data
 public class User implements Serializable {
     /**

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.springboot3learn.mapper.userMapper">
 
-    <resultMap id="BaseResultMap" type="jai.springboot3learn.entity.user.user">
+    <resultMap id="BaseResultMap" type="net.chatmindai.springboot3learn.entity.user.User">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="age" column="age" jdbcType="INTEGER"/>
