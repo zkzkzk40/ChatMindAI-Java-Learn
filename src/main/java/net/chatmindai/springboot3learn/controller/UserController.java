@@ -11,11 +11,11 @@ import net.chatmindai.springboot3learn.entity.user.User;
 import net.chatmindai.springboot3learn.entity.user.UserConverter;
 import net.chatmindai.springboot3learn.entity.user.loginUser;
 import net.chatmindai.springboot3learn.service.UserService;
-import net.chatmindai.springboot3learn.service.impl.LoginUserService;
+import net.chatmindai.springboot3learn.service.impl.LoginUserServiceImpl;
 import net.chatmindai.springboot3learn.util.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 public class UserController {
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
-    private final LoginUserService loginUserService;
+    private final LoginUserServiceImpl loginUserServiceImp;
 
     @PostMapping("/user")
     @Operation(summary = "用户创建接口")
@@ -83,7 +83,7 @@ public class UserController {
         Map<String, Object> response = new HashMap<>();
 
         try {
-            loginUser userDB = loginUserService.login(loginUser);
+            loginUser userDB = loginUserServiceImp.login(loginUser);
             Map<String, String> payload = new HashMap<>();
             payload.put("id", userDB.getId());
             payload.put("username", userDB.getUsername());
