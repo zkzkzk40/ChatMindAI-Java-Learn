@@ -5,8 +5,13 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.Data;
+
 
 /**
  * 演示用户信息表
@@ -44,12 +49,12 @@ public class User implements Serializable {
     /**
      * 用户出生日期
      */
-    private Date birthDate;
+    private LocalDateTime birthDate;
 
     /**
      * 计划日期，必须是未来的日期
      */
-    private Date planDate;
+    private LocalDateTime planDate;
 
     /**
      * 用户分数，必须为正数
@@ -59,7 +64,8 @@ public class User implements Serializable {
     /**
      * 用户兴趣爱好列表，1-5项
      */
-    private Object hobbies;
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    private List<String> hobbies;
 
     /**
      * 是否同意服务条款
@@ -69,12 +75,12 @@ public class User implements Serializable {
     /**
      * 记录创建时间
      */
-    private Date createAt;
+    private LocalDateTime createAt;
 
     /**
      * 记录最后更新时间
      */
-    private Date updateAt;
+    private LocalDateTime updateAt;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
