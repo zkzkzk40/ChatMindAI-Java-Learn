@@ -1,4 +1,4 @@
-package net.chatmindai.springboot3learn.fliter;
+package net.chatmindai.springboot3learn.filter;
 
 
 import com.auth0.jwt.exceptions.AlgorithmMismatchException;
