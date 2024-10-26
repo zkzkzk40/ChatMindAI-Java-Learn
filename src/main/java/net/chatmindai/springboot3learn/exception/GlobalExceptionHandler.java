@@ -60,4 +60,29 @@ public class GlobalExceptionHandler {
         // 返回HTTP 400 错误请求状态码
         return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
     }
+
+    /**
+     * 处理参数校验失败的异常
+     *
+     * @param ex 捕获到的MethodArgumentNotValidException
+     * @param request 当前的web请求
+     * @return 包含错误信息的ResponseEntity
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<CommonResult<Map<String, String>>> handleValidationExceptions(
+            MethodArgumentNotValidException ex, WebRequest request) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(error ->
+                errors.put(error.getField(), error.getDefaultMessage()));
+
+        log.warn("参数校验失败", ex);
+
+        CommonResult<Map<String, String>> result = CommonResult.error(
+                HttpStatus.BAD_REQUEST.value(),
+                "参数校验失败"
+        );
+        result.setData(errors);
+
+        return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+    }
 }
