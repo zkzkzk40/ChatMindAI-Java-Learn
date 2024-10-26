@@ -24,3 +24,7 @@ spring:
       password: 123456
       timeout: 10000
       database: 0
+token:
+  secretKey: sdfsdsdvcxvcsdvxcvxcvxcvxcvxcv
+  refreshTime: 3600000 # 设置刷新时间，例如1小时（以毫秒为单位）
+  expiresTime: 86400000 # 设置过期时间，例如1天（以毫秒为单位）
