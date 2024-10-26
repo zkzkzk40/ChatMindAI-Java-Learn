@@ -23,14 +23,14 @@ public class AOP {
     public void controllerPointcut() {
     }
 
-@Around("controllerPointcut()")
-public Object logAroundController(ProceedingJoinPoint joinPoint) throws Throwable {
+    @Around("controllerPointcut()")
+    public Object logAroundController(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         LogInfo logInfo = signature.getMethod().getAnnotation(LogInfo.class);
 
         // 如果方法没有 @LogInfo 注解，直接执行方法并返回结果
         if (logInfo == null) {
-        return joinPoint.proceed();
+            return joinPoint.proceed();
         }
 
         String methodDescription = logInfo.value();
@@ -47,5 +47,5 @@ public Object logAroundController(ProceedingJoinPoint joinPoint) throws Throwabl
         log.info("出参: {}", result);
 
         return result;
-        }
+    }
 }
