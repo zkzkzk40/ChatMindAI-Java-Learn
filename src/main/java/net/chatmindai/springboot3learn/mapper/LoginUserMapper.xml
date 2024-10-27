@@ -1,5 +1,0 @@
-<mapper namespace="net.chatmindai.springboot3learn.mapper.LoginUserMapper">
-    <select id="login" resultType="net.chatmindai.springboot3learn.entity.loginUser">
-        SELECT * FROM users WHERE username = #{username} AND password = #{password}
-    </select>
-</mapper>

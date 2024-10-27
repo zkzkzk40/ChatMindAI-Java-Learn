@@ -20,7 +20,7 @@ public class UpdateUserDTO implements Serializable {
     private long id;
 
     @NotBlank(message = "名称不能为空")
-    @Schema(description = "名称", example = "zzb")
+    @Schema(description = "名称", example = "hpy")
     @Length(min = 2, max = 50, message = "名称长度必须在2到50个字符之间")
     private String name;
 

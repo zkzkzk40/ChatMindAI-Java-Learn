@@ -10,9 +10,11 @@ import net.chatmindai.springboot3learn.entity.demo.dto.User.UpdateUserDTO;
 import net.chatmindai.springboot3learn.entity.user.User;
 import net.chatmindai.springboot3learn.entity.user.UserConverter;
 import net.chatmindai.springboot3learn.entity.loginUser;
+import net.chatmindai.springboot3learn.service.LoginUserService;
 import net.chatmindai.springboot3learn.service.UserService;
 import net.chatmindai.springboot3learn.service.impl.LoginUserServiceImpl;
 import net.chatmindai.springboot3learn.util.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -74,10 +76,12 @@ public class UserController {
         }
     }
 
+    @Autowired
+    private LoginUserService loginUserService;
     @GetMapping("/user/login")
     @Operation(summary = "用户登录接口")
     @LogInfo("用户登录接口")
-    public Map<String, Object> login(@RequestBody loginUser loginUser) {
+    public Map<String, Object> login(loginUser loginUser) {
         log.info("用户名：[{}]", loginUser.getUsername());
         log.info("密码：[{}]", loginUser.getPassword());
         Map<String, Object> response = new HashMap<>();

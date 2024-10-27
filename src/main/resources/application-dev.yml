@@ -11,7 +11,7 @@ springdoc:
   group-configs:
     - group: 'default'
       paths-to-match: '/**'
-      packages-to-scan: net.chatmindai.springboot3learn.controller
+      packages-to-scan: net.chatmindai.springboot3learn.controller.UserController
 # knife4j的增强配置，不需要增强可以不配
 knife4j:
   enable: true
@@ -22,3 +22,7 @@ spring:
     url: jdbc:mysql://localhost:3306/springboot3learn?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: 932357493hpyHPY!
+token:
+  secretKey: sigyhigiyuftdxd
+  refreshTime: 3600000
+  expiresTime: 86400000
