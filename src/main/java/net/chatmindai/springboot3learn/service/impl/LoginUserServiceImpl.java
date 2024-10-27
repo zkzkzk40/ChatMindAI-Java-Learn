@@ -1,6 +1,6 @@
 package net.chatmindai.springboot3learn.service.impl;
 
-import net.chatmindai.springboot3learn.entity.user.loginUser;
+import net.chatmindai.springboot3learn.entity.loginUser;
 import net.chatmindai.springboot3learn.mapper.LoginUserMapper;
 import net.chatmindai.springboot3learn.service.LoginUserService;
 import org.springframework.beans.factory.annotation.Autowired;

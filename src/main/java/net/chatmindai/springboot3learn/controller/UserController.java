@@ -9,7 +9,7 @@ import net.chatmindai.springboot3learn.entity.demo.dto.User.CreateUserDTO;
 import net.chatmindai.springboot3learn.entity.demo.dto.User.UpdateUserDTO;
 import net.chatmindai.springboot3learn.entity.user.User;
 import net.chatmindai.springboot3learn.entity.user.UserConverter;
-import net.chatmindai.springboot3learn.entity.user.loginUser;
+import net.chatmindai.springboot3learn.entity.loginUser;
 import net.chatmindai.springboot3learn.service.UserService;
 import net.chatmindai.springboot3learn.service.impl.LoginUserServiceImpl;
 import net.chatmindai.springboot3learn.util.JwtUtil;

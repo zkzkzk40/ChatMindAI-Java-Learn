@@ -1,4 +1,4 @@
-package net.chatmindai.springboot3learn.entity.user;
+package net.chatmindai.springboot3learn.entity;
 
 import lombok.Data;
 
