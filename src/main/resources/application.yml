@@ -1,5 +1,17 @@
 spring:
   application:
     name: springboot3-learn
+
   profiles:
     active: dev
+
+  cache:
+    type: redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+# 其他Spring Boot配置
+server:
+  port: 8080

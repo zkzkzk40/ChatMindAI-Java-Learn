@@ -12,6 +12,7 @@ import net.chatmindai.springboot3learn.entity.user.dtos.DeleteUserDTO;
 import net.chatmindai.springboot3learn.entity.user.dtos.ExchangeUserDTO;
 import net.chatmindai.springboot3learn.entity.user.dtos.FindUserDTO;
 import net.chatmindai.springboot3learn.service.UserService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
@@ -80,6 +81,7 @@ public class UserController {
 
     @Operation(summary = "创建新用户", description = "接收 AddUserDTO，转换为 User 并保存到数据库")
     @PostMapping("/user")
+    @Cacheable(value = "user", key = "#addUserDTO.id")
     public CommonResult<User> addUser(@Valid @RequestBody AddUserDTO addUserDTO) {
         User user = UserConverter.INSTANCE.addUserDtoToUser(addUserDTO);
         boolean saved = userService.save(user);
@@ -92,6 +94,7 @@ public class UserController {
 
     @Operation(summary = "查找用户", description = "接收 FindUserDTO，查找用户")
     @GetMapping("/user")
+    @Cacheable(value = "user", key = "#findUserDTO.id")
     public CommonResult<User> findUser(@Valid FindUserDTO findUserDTO) {
         User user = userService.findById(findUserDTO.getId());
         if (user != null) {
@@ -103,6 +106,7 @@ public class UserController {
 
     @Operation(summary = "删除用户", description = "接收 DeleteUserDTO，删除用户")
     @DeleteMapping("/user")
+    @Cacheable(value = "user", key = "#deleteUserDTO.id")
     public CommonResult<User> deleteUser(@Valid DeleteUserDTO deleteUserDTO) {
         boolean deleted = userService.deleteById(deleteUserDTO.getId());
         if (deleted) {
@@ -114,6 +118,7 @@ public class UserController {
 
     @Operation(summary = "更新用户", description = "接收 ExchangeUserDTO，更新用户")
     @PutMapping("/user")
+    @Cacheable(value = "user", key = "#exchangeUserDTO.id")
     public CommonResult<User> exchangeUser(@Valid @RequestBody ExchangeUserDTO exchangeUserDTO) {
         User user = UserConverter.INSTANCE.exchangeUserDtoToUser(exchangeUserDTO);
         boolean updated = userService.updateById(user);
