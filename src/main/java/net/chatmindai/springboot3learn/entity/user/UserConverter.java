@@ -1,6 +1,8 @@
 package net.chatmindai.springboot3learn.entity.user;
 
 import net.chatmindai.springboot3learn.entity.demo.dto.DemoDTO;
+import net.chatmindai.springboot3learn.entity.user.dtos.AddUserDTO;
+import net.chatmindai.springboot3learn.entity.user.dtos.ExchangeUserDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -10,12 +12,7 @@ import org.mapstruct.factory.Mappers;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-/**
- * 用户转换器
- *
- * @author zk
- * @date 2024/10/09
- */
+
 @Mapper
 public interface UserConverter {
 
@@ -35,4 +32,8 @@ public interface UserConverter {
     default LocalDateTime localDateToLocalDateTime(LocalDate date) {
         return date != null ? date.atStartOfDay() : null;
     }
+
+    User addUserDtoToUser(AddUserDTO addUserDTO);
+
+    User exchangeUserDtoToUser(ExchangeUserDTO exchangeUserDTO);
 }

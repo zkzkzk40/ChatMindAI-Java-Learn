@@ -13,12 +13,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-/**
- * demo参数
- *
- * @author zk
- * @date 2024/10/04
- */
+
 @Data
 public class DemoDTO implements Serializable {
 

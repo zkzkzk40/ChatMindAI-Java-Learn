@@ -11,13 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-/**
- * Controller demo
- * 这是一个演示用的控制器类
- *
- * @author zk
- * @date 2024/10/04
- */
+
 @Slf4j
 @Tag(name = "演示用的控制器", description = "演示用的控制器")
 @RestController

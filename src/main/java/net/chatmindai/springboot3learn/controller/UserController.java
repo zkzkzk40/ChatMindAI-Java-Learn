@@ -7,11 +7,12 @@ import net.chatmindai.springboot3learn.entity.CommonResult;
 import net.chatmindai.springboot3learn.entity.demo.dto.DemoDTO;
 import net.chatmindai.springboot3learn.entity.user.User;
 import net.chatmindai.springboot3learn.entity.user.UserConverter;
+import net.chatmindai.springboot3learn.entity.user.dtos.AddUserDTO;
+import net.chatmindai.springboot3learn.entity.user.dtos.DeleteUserDTO;
+import net.chatmindai.springboot3learn.entity.user.dtos.ExchangeUserDTO;
+import net.chatmindai.springboot3learn.entity.user.dtos.FindUserDTO;
 import net.chatmindai.springboot3learn.service.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 
@@ -32,6 +33,94 @@ public class UserController {
             return CommonResult.success(user, "用户创建成功");
         } else {
             return CommonResult.error("用户创建失败");
+        }
+    }
+
+//    @PostMapping("/add")
+//    public CommonResult<User> addUser(@Valid @RequestBody AddUserDTO addUserDTO) {
+//        User user = UserConverter.INSTANCE.addUserDtoToUser(addUserDTO);
+//        boolean saved = userService.save(user);
+//        if (saved) {
+//            return CommonResult.success(user, "用户创建成功");
+//        } else {
+//            return CommonResult.error("用户创建失败");
+//        }
+//    }
+//
+//    @PostMapping("/find")
+//    public CommonResult<User> findUser(@Valid @RequestBody FindUserDTO findUserDTO) {
+//        User user = userService.findById(findUserDTO.getId());
+//        if (user != null) {
+//            return CommonResult.success(user, "用户查找成功");
+//        } else {
+//            return CommonResult.error("用户查找失败");
+//        }
+//    }
+//
+//    @PostMapping("/delete")
+//    public CommonResult<User> deleteUser(@Valid @RequestBody DeleteUserDTO deleteUserDTO) {
+//        boolean deleted = userService.deleteById(deleteUserDTO.getId());
+//        if (deleted) {
+//            return CommonResult.success(null, "用户删除成功");
+//        } else {
+//            return CommonResult.error("用户删除失败");
+//        }
+//    }
+//
+//    @PostMapping("/exchange")
+//    public CommonResult<User> exchangeUser(@Valid @RequestBody ExchangeUserDTO exchangeUserDTO) {
+//        User user = UserConverter.INSTANCE.exchangeUserDtoToUser(exchangeUserDTO);
+//        boolean updated = userService.updateById(user);
+//        if (updated) {
+//            return CommonResult.success(user, "用户更新成功");
+//        } else {
+//            return CommonResult.error("用户更新失败");
+//        }
+//    }
+
+    @Operation(summary = "创建新用户", description = "接收 AddUserDTO，转换为 User 并保存到数据库")
+    @PostMapping("/user")
+    public CommonResult<User> addUser(@Valid @RequestBody AddUserDTO addUserDTO) {
+        User user = UserConverter.INSTANCE.addUserDtoToUser(addUserDTO);
+        boolean saved = userService.save(user);
+        if (saved) {
+            return CommonResult.success(user, "用户创建成功");
+        } else {
+            return CommonResult.error("用户创建失败");
+        }
+    }
+
+    @Operation(summary = "查找用户", description = "接收 FindUserDTO，查找用户")
+    @GetMapping("/user")
+    public CommonResult<User> findUser(@Valid FindUserDTO findUserDTO) {
+        User user = userService.findById(findUserDTO.getId());
+        if (user != null) {
+            return CommonResult.success(user, "用户查找成功");
+        } else {
+            return CommonResult.error("用户查找失败");
+        }
+    }
+
+    @Operation(summary = "删除用户", description = "接收 DeleteUserDTO，删除用户")
+    @DeleteMapping("/user")
+    public CommonResult<User> deleteUser(@Valid DeleteUserDTO deleteUserDTO) {
+        boolean deleted = userService.deleteById(deleteUserDTO.getId());
+        if (deleted) {
+            return CommonResult.success(null, "用户删除成功");
+        } else {
+            return CommonResult.error("用户删除失败");
+        }
+    }
+
+    @Operation(summary = "更新用户", description = "接收 ExchangeUserDTO，更新用户")
+    @PutMapping("/user")
+    public CommonResult<User> exchangeUser(@Valid @RequestBody ExchangeUserDTO exchangeUserDTO) {
+        User user = UserConverter.INSTANCE.exchangeUserDtoToUser(exchangeUserDTO);
+        boolean updated = userService.updateById(user);
+        if (updated) {
+            return CommonResult.success(user, "用户更新成功");
+        } else {
+            return CommonResult.error("用户更新失败");
         }
     }
 }

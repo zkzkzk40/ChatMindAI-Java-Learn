@@ -15,13 +15,7 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * 日志切面类
- * 用于记录控制器方法的入参和出参
- *
- * @author zk
- * @date 2024/10/05
- */
+
 @Aspect // 声明这是一个切面
 @Component // 将该类声明为Spring组件，使其能被自动扫描和注册
 @Slf4j // Lombok注解，自动生成日志对象
