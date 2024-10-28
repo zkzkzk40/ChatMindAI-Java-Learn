@@ -1,23 +1,5 @@
 spring:
   application:
     name: springboot3-learn
-server:
-  port: 8000
-
-# springdoc-openapi????
-springdoc:
-  swagger-ui:
-    path: /swagger-ui.html
-    tags-sorter: alpha
-    operations-sorter: alpha
-  api-docs:
-    path: /v3/api-docs
-  group-configs:
-    - group: 'default'
-      paths-to-match: '/**'
-      packages-to-scan: net.chatmindai.springboot3learn.controller
-# knife4j???????????????
-knife4j:
-  enable: true
-  setting:
-    language: zh_cn
+  profiles:
+    active: dev
