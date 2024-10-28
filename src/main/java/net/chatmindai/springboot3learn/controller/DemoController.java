@@ -4,6 +4,7 @@ package net.chatmindai.springboot3learn.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import net.chatmindai.springboot3learn.annonation.LogInfo;
 import net.chatmindai.springboot3learn.entity.demo.dto.DemoDTO;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +46,7 @@ public class DemoController {
         // 如果想要更细粒度的控制,可以考虑使用ResponseEntity<>
         return map;
     }
+    @LogInfo("获取用户信息")
     @Operation(summary = "使用DemoDTO对象")
     @PostMapping("/demo2")
     public DemoDTO useDemoDTO(@Validated @RequestBody DemoDTO demoDTO) {
