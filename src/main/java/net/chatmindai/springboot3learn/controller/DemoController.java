@@ -3,6 +3,7 @@ package net.chatmindai.springboot3learn.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import net.chatmindai.springboot3learn.annotation.LogInfo;
 import net.chatmindai.springboot3learn.entity.demo.dto.DemoDto;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -48,6 +49,7 @@ public class DemoController {
 
     @Operation(summary = "使用DemoDTO对象")
     @PostMapping("/demo2")
+    @LogInfo("获取用户信息")
     public DemoDto useDemoDTO(@Validated @RequestBody DemoDto demoDto) {
         log.info("入参为: {}", demoDto);
         return demoDto;
