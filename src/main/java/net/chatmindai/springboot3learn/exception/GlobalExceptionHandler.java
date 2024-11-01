@@ -4,9 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import net.chatmindai.springboot3learn.entity.CommonResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.HashMap;
@@ -91,5 +93,15 @@ public class GlobalExceptionHandler {
         result.setData(errors);
 
         return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * 处理token验证方面的serviceException错误
+     */
+    @ExceptionHandler(ServiceException.class)
+    @ResponseBody
+    public CommonResult ServiceException(ServiceException e)
+    {
+        return CommonResult.error(e.getCode(),e.getMessage());
     }
 }

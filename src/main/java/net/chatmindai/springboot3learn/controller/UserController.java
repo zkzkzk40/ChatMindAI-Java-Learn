@@ -7,7 +7,10 @@ import net.chatmindai.springboot3learn.entity.demo.dto.DemoDto;
 import net.chatmindai.springboot3learn.entity.user.User;
 import net.chatmindai.springboot3learn.entity.CommonResult;
 import net.chatmindai.springboot3learn.entity.user.UserConverter;
+import net.chatmindai.springboot3learn.entity.user.UserResponse;
+import net.chatmindai.springboot3learn.exception.ServiceException;
 import net.chatmindai.springboot3learn.service.UserService;
+import net.chatmindai.springboot3learn.utils.TokenUtils;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
@@ -92,4 +95,25 @@ public class UserController {
             return CommonResult.error("成绩修改失败");
         }
     }
+
+    @Operation(summary="用户登录，验证jwt")
+    @PostMapping("/login")
+    public CommonResult<UserResponse> login(@RequestParam String userId, @RequestParam String email){
+        User user=userService.getById(userId);
+        if(user==null){
+            return CommonResult.error("用户名或密码错误");
+        }
+        if(!user.getEmail().equals(email)){
+            return CommonResult.error("用户名或密码错误");
+        }
+        //生成Token
+        String token = TokenUtils.createToken(String.valueOf(user.getId()),user.getEmail());
+        UserResponse userResponse=new UserResponse(
+                user.getId(),user.getName(),user.getAge(),user.getPhoneNumber(),user.getBirthDate(),
+                user.getPlanDate(),user.getScore(),user.getHobbies(),user.getAgreeTerms(),
+                user.getCreateAt(),user.getUpdateAt(),token
+        );
+        return CommonResult.success(userResponse,"登录成功");
+    }
+
 }

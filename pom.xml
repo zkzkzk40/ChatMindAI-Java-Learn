@@ -82,6 +82,18 @@
 			<artifactId>mapstruct-processor</artifactId>
 			<version>1.5.0.Final</version>
 		</dependency>
+<!--		jwt-->
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>4.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-all</artifactId>
+			<version>5.8.11</version> <!-- 确保使用最新版本 -->
+		</dependency>
+
 	</dependencies>
 
 	<build>
