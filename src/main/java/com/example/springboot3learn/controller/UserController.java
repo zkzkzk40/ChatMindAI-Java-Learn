@@ -5,6 +5,7 @@ import com.example.springboot3learn.entity.dto.DemoDTO;
 import com.example.springboot3learn.entity.user.User;
 import com.example.springboot3learn.entity.user.UserConverter;
 import com.example.springboot3learn.service.UserService;
+import com.example.springboot3learn.util.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -71,4 +72,17 @@ public class UserController {
         return removed ? CommonResult.success("用户删除成功") : CommonResult.error("用户删除失败");
     }
 
+    @PostMapping("/login")
+    public String login(@RequestParam String name, @RequestParam String password) {
+        // 假设用户名和密码校验通过，创建 User 对象
+        if ("user".equals(name) && "password".equals(password)) {
+            User user = new User();
+            user.setId(1L); // 假设从数据库获得 ID
+            user.setName(name);
+
+            // 返回生成的 JWT
+            return JwtUtil.generateToken(user);
+        }
+        return "Invalid username or password";
+    }
 }
